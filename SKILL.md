@@ -7,7 +7,7 @@ description: Use when creating or updating a GitHub repository's README, SECURIT
 
 ## Overview
 
-一站式 GitHub 仓库基础设施：README 正像食谱、SECURITY.md 安全策略、Issue 模板、GPL-3.0 许可证。所有模板保持与 [ServerHarbor](https://github.com/sunnyhmz7010/ServerHarbor) 一致的风格和联系方式。
+一站式 GitHub 仓库基础设施：README 正像食谱、SECURITY.md 安全策略、Issue 模板、GPL-3.0 许可证。仓库中需要复用的固定文件均已存放在 `templates/` 目录。执行任务时应优先复制模板，而不是重新生成固定内容或从外部仓库获取文件。
 
 ## When to Use
 
@@ -153,15 +153,54 @@ README 不是规则清单，是**可直接填空的 HTML 模板**。你只替换
 
 ## Issue 模板
 
-从 ServerHarbor 复制。应用到具体项目时，将模板中所有 `ServerHarbor` 引用替换为实际项目名。
+Issue 模板均从 `templates/` 目录复制。
 
 ### 文件
 
 | 文件 | 用途 |
 |------|------|
 | `templates/config.yml` | 禁用空白 Issue |
-| `templates/bug_report.yml` | 缺陷反馈（中英双语，含前置检查清单） |
-| `templates/feature_request.yml` | 功能建议（中英双语，含前置检查清单） |
+| `templates/bug_report.yml` | 中英双语缺陷反馈模板 |
+| `templates/feature_request.yml` | 中英双语功能建议模板 |
+
+Issue 模板应以 `templates/` 中的文件为基础，但允许根据项目实际情况调整字段内容。
+
+### 允许调整的内容
+
+可以根据项目的语言、框架、运行方式和部署环境修改：
+
+- 字段的 `label`
+- 字段的 `description`
+- 字段的 `placeholder`
+- 与项目版本、运行环境、依赖、部署方式相关的提示文本
+- 不适用于当前项目的环境示例
+- 项目名称占位符或旧项目名引用
+- 为准确收集问题信息而新增、删除或调整的项目特定字段
+
+例如：
+
+- Python 项目可要求填写 Python、pip/uv/poetry 版本
+- Node.js 项目可要求填写 Node.js、npm/pnpm/yarn 版本
+- Docker 项目可要求填写 Docker、Compose、镜像标签和宿主机环境
+- 前端项目可要求填写浏览器、操作系统和构建工具版本
+- CLI 工具可要求填写命令、参数、终端和 Shell 环境
+- 服务端项目可要求填写部署方式、数据库、中间件和日志信息
+
+### 默认保留的内容
+
+除非项目实际需求不适用，否则应保留：
+
+- Issue Form 的 YAML 基本结构和合法语法
+- 中英双语风格
+- 必要的前置检查清单
+- 问题复现步骤
+- 预期行为与实际行为
+- 日志、截图或补充信息字段
+- 通用的提交质量要求
+
+模板不是不可修改的固定成品，而是项目适配的基础骨架。修改时应以提高问题信息质量为目标，不得机械保留与项目无关的字段或示例。
+
+如果模板内容已经完全适合当前项目，则直接复制，仅替换项目名等变量。
 
 ## LICENSE
 
@@ -173,8 +212,8 @@ README 不是规则清单，是**可直接填空的 HTML 模板**。你只替换
 
 1. **分析项目**：读取项目结构、语言、框架、功能定位
 2. **填写 README 模板**：将分析结果填入 README 正像模板的占位符
-3. **复制固定文件**：SECURITY.md（原样）、Issue 模板（替换项目名）、LICENSE（GPL-3.0）
-4. **展示结果**：列出生成的所有文件和关键占位符替换，**等待用户确认后写入**
+3. **复制固定文件**：SECURITY.md（原样）、Issue 模板（替换项目名及其他必要调整的内容）、LICENSE（GPL-3.0）
+4. **执行写入**：涉及修改现有文件、覆盖文件、存在不确定信息时，先说明变更并等待用户确认。其他情况可直接执行，无需额外展示结果或等待确认。
 
 检查现有 README 时：
 1. 对照强制约束逐项检查
