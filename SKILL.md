@@ -60,8 +60,8 @@ README 不是规则清单，是**可直接填空的 HTML 模板**。你只替换
 </div>
 
 <p align="center">
-  <img src="https://img.shields.io/github/v/tag/{用户}/{仓库}?label=Release&color=3b82f6" alt="Release" />
-  <img src="https://img.shields.io/github/license/{用户}/{仓库}?color=10b981" alt="License" />
+  <a href="https://github.com/{用户}/{仓库}/releases"><img src="https://img.shields.io/github/v/release/{用户}/{仓库}?label=Release&color=3b82f6" alt="Release" />
+  <a href="https://github.com/{用户}/{仓库}/blob/main/LICENSE"><img src="https://img.shields.io/github/license/{用户}/{仓库}?color=10b981" alt="License" />
 </p>
 
 ---
