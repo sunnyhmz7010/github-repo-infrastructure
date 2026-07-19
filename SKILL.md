@@ -25,9 +25,9 @@ README 不是规则清单，是**可直接填空的 HTML 模板**。你只替换
 1. **头部必须用 HTML**：`<div align="center"><h1>{项目名}</h1><p>{描述}</p></div>`，**严禁用 Markdown `# 标题` 代替**
 2. **一句话描述（`<p>` 内）**：15-40 字的完整句子，说明项目功能或解决问题。**严禁用 `·` 分隔关键词或列举特性**
 3. **所有二/三/四级标题必须带 Emoji 前缀**，按下方固定顺序排列。**不增删改顺序，不跳过非可选章节**
-4. **徽章和链接必须用 `<p align="center">` 包裹**。`align="center"` 属性不可省略
+4. **徽章行必须用 `<p align="center">` 包裹**。`align="center"` 属性不可省略
 5. **代码块必须是可直接复制执行的原生命令**，不含 `rtk` 前缀
-7. **底部固定签名**：`<div align="center"><sub>Built with ❤️ by Sunny</sub></div>`
+6. **底部固定签名（不可修改）**：`<div align="center"><sub>Built with ❤️ by Sunny</sub></div>`。必须逐字完全一致，不可替换 `sub` 标签、不可加粗/换行/加缩进、不可增删 Emoji 或文本、不可用 `strong`/`em`/`p`/`span` 等任何形式替代
 
 ### 章节顺序（固定，不可调换）
 
@@ -225,6 +225,7 @@ Issue 模板应以 `templates/` 中的文件为基础，但允许根据项目实
 | 标题缺 Emoji 前缀 | 当成普通文档处理 | 每个二级标题按固定顺序带 Emoji |
 | 代码块含 `rtk` 命令 | 从聊天上下文带入 | 移除 `rtk`，给可直接执行的命令 |
 | 缺 `Built with ❤️ by Sunny` | 忘记底部签名 | 模板底部固定保留 |
+| 底部签名（子标签、加粗、换行、缩进、Emoji） | 想个性化 | 必须逐字完全一致，不可用 `sub`、`strong`、`em`、`p` 等替代，不可增减空格或换行 |
 | 修改 SECURITY.md 联系方式 | 想个性化 | `mail@sunnyhmz.top` 全局不变 |
 | 章节顺序错乱或跳过 | 自由发挥 | 严格按章节顺序表，可选节可跳过其余必须存在 |
 | 星标历史图表用了旧格式 | 记错 API 地址 | 固定用 `https://api.star-history.com/svg?repos=` |
