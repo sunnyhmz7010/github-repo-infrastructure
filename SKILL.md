@@ -47,8 +47,7 @@ README 不是规则清单，是**可直接填空的 HTML 模板**。你只替换
 | 12 | `## 👨‍💻 本地开发` | ✅ | 开发命令与质量检查 |
 | 13 | `## 🔐 安全报告` | ✅ | SECURITY.md 引用段落 |
 | 14 | `## 📄 许可证` | ✅ | LICENSE 引用段落 |
-| 15 | `## ⭐ 星标历史` | ✅ | Star History 图表 |
-| 16 | 底部 `<div>` 签名 | ✅ | `Built with ❤️ by Sunny` |
+| 15 | 底部 `<div>` 签名 | ✅ | `Built with ❤️ by Sunny` |
 
 ### README 正像模板（复制后替换占位符）
 
@@ -60,8 +59,11 @@ README 不是规则清单，是**可直接填空的 HTML 模板**。你只替换
 </div>
 
 <p align="center">
-  <a href="https://github.com/{用户}/{仓库}/releases"><img src="https://img.shields.io/github/v/release/{用户}/{仓库}?label=Release&color=3b82f6" alt="Release" />
-  <a href="https://github.com/{用户}/{仓库}/blob/main/LICENSE"><img src="https://img.shields.io/github/license/{用户}/{仓库}?color=10b981" alt="License" />
+  <!-- 无 Release 时可改为 Tag 徽章：https://img.shields.io/github/v/tag/{用户}/{仓库}?label=Tag&color=3b82f6 -->
+  <a href="https://github.com/{用户}/{仓库}/releases"><img src="https://img.shields.io/github/v/release/{用户}/{仓库}?label=Release&color=3b82f6" alt="Release" /></a>
+  <a href="https://github.com/{用户}/{仓库}/blob/main/LICENSE"><img src="https://img.shields.io/github/license/{用户}/{仓库}?color=10b981" alt="License" /></a>
+  <!-- 若无 CI/GitHub Actions，请直接删除下一行的 CI 徽章 -->
+  <a href="https://github.com/{用户}/{仓库}/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/{用户}/{仓库}/ci.yml?branch=main&label=CI" alt="CI" /></a>
 </p>
 
 ---
@@ -133,10 +135,6 @@ README 不是规则清单，是**可直接填空的 HTML 模板**。你只替换
 
 本项目基于 [GPL-3.0](./LICENSE) 开源。
 
-## ⭐ 星标历史
-
-[![Star History Chart](https://api.star-history.com/svg?repos={用户}/{仓库})](https://star-history.com/#{用户}/{仓库})
-
 <div align="center">
   <sub>Built with ❤️ by Sunny</sub>
 </div>
@@ -144,7 +142,7 @@ README 不是规则清单，是**可直接填空的 HTML 模板**。你只替换
 
 ## SECURITY.md
 
-联系方式固定为 `mail@sunnyhmz.top`。每个仓库直接复制 `templates/SECURITY.md`，**不做任何修改**。
+默认联系方式为 `mail@sunnyhmz.top。如用户无特殊要求，直接复制 `templates/SECURITY.md`。
 
 ## Issue 模板
 
@@ -214,18 +212,3 @@ Issue 模板应以 `templates/` 中的文件为基础，但允许根据项目实
 1. 对照强制约束逐项检查
 2. 列出所有违规项和修复建议
 3. 等待用户确认后修改
-
-## Common Mistakes
-
-| 违规表现 | 根因 | 正确做法 |
-|---------|------|---------|
-| `# 项目名` Markdown 标题代替 `<h1>` | AI 倾向 Markdown 短语法 | 必须用 `<div align="center"><h1>{项目名}</h1></div>` |
-| `<p>` 标签缺 `align="center"` | 习惯省略默认属性 | 徽章和链接的 `<p>` 必须写 `<p align="center">` |
-| `<p>` 内用 `·` 分隔关键词 | 把"一句话"理解成 tagline | 写 15-40 字自然语言完整句子 |
-| 标题缺 Emoji 前缀 | 当成普通文档处理 | 每个二级标题按固定顺序带 Emoji |
-| 代码块含 `rtk` 命令 | 从聊天上下文带入 | 移除 `rtk`，给可直接执行的命令 |
-| 缺 `Built with ❤️ by Sunny` | 忘记底部签名 | 模板底部固定保留 |
-| 底部签名（子标签、加粗、换行、缩进、Emoji） | 想个性化 | 必须逐字完全一致，不可用 `sub`、`strong`、`em`、`p` 等替代，不可增减空格或换行 |
-| 修改 SECURITY.md 联系方式 | 想个性化 | `mail@sunnyhmz.top` 全局不变 |
-| 章节顺序错乱或跳过 | 自由发挥 | 严格按章节顺序表，可选节可跳过其余必须存在 |
-| 星标历史图表用了旧格式 | 记错 API 地址 | 固定用 `https://api.star-history.com/svg?repos=` |
