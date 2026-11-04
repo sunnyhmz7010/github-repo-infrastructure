@@ -1,6 +1,6 @@
 ---
 name: github-repo-infrastructure
-description: Create or update GitHub repository infrastructure, including README, SECURITY.md, issue templates, LICENSE, and GitHub Actions CI/CD workflows. Use for repository initialization, project documentation, workflow setup, or checking these files against the repository conventions.
+description: Create or update GitHub repository infrastructure, including README.md, SECURITY.md, issue templates, LICENSE, and GitHub Actions CI/CD workflows. Use for repository initialization, project documentation, workflow setup, or checking these files against the repository conventions.
 ---
 
 # GitHub 仓库基础设施
