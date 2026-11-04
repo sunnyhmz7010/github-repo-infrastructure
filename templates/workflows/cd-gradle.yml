@@ -1,0 +1,53 @@
+name: CD
+
+on:
+  release:
+    types:
+      - published
+
+permissions:
+  contents: write
+
+jobs:
+  cd:
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_TAG: ${{ github.event.release.tag_name }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Enable pnpm via Corepack
+        run: |
+          corepack enable
+          corepack prepare pnpm@9.15.9 --activate
+
+      - name: Resolve release version
+        id: version
+        run: echo "value=${RELEASE_TAG#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Build plugin
+        env:
+          RELEASE_VERSION: ${{ steps.version.outputs.value }}
+        run: ./gradlew -Pversion="$RELEASE_VERSION" assemble
+
+      - name: Upload plugin artifact to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: gh release upload "$RELEASE_TAG" build/libs/*.jar --clobber
