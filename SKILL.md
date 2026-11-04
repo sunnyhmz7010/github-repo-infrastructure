@@ -36,11 +36,11 @@ description: Create or update GitHub repository infrastructure, including README
 
 ### 头部与格式
 
-1. **头部使用 HTML**：`<div align="center">` 包含可选 Logo、`<h1>` 项目名和 `<p>` 一句话介绍，顺序不变
+1. **头部使用 HTML**：`<div align="center">` 包含可选 Logo、`<h1>` 项目名和 `<p>` 一句话介绍，顺序不变；头部项目名大标题不加 Emoji，不计入正文标题白名单和 Emoji 唯一性规则
 2. **一句话介绍**：15–40 字的完整句子，直接说明用途，末尾不加中文或英文句号；不用 `·` 分隔关键词或列举特性
 3. **技术栈标签**：在介绍下方单独使用 `<p align="center">`，采用 VoCat 同款 Shields.io `style=flat-square` 样式，使用品牌色，有可用图标时加 `logo`；展示主要语言、框架、数据库等实际技术，版本从配置或锁文件读取，无法确认时仅写名称
 4. **项目状态徽章**：在技术栈标签下方另起居中一行，仅按实际情况保留 Release、License、CI 徽章，不额外添加运行平台等徽章；沿用原模板样式，不添加 `style=flat-square`，只有技术栈标签使用 VoCat 样式；没有对应发布、文件或工作流时省略，不虚构状态
-5. **章节标题**：正文标题严格遵守下方白名单与层级规则，固定标题不得改名、替换或省略；所有标题前必须有合适的 Emoji，标题前的 Emoji 在整篇 README 中不得重复，没有 Emoji 的文字不得设置为标题
+5. **章节标题**：正文标题严格遵守下方白名单与层级规则，固定标题不得改名、替换或省略；所有正文标题前必须有合适的 Emoji，正文标题前的 Emoji 在整篇 README 中不得重复，没有 Emoji 的正文文字不得设置为标题
 6. **代码块**：标明语言，只保留当前步骤需要的命令、配置或示例代码；命令使用可直接复制的原生命令，不带 `rtk` 前缀，占位值说明如何替换
 7. **固定声明与签名**：模板中的安全报告段落、许可证段落和 `Built with ❤️ by Sunny` 必须逐字保留，包括标点、链接文字和完整链接地址；用户指定的 `start-your-python` 链接也不得替换为目标仓库地址，签名保持原有 HTML 换行结构
 
@@ -79,11 +79,24 @@ description: Create or update GitHub repository infrastructure, including README
 
 Docker 部署必须写清：
 
+- Docker 相关文件统一放在仓库根目录：`compose.yaml`、`Dockerfile`，必要时提供 `.dockerignore`；不为这些文件另建部署配置子目录
+- GitHub 不提供或提交 `.env`、`.env.example`；部署示例不依赖 `env_file`、`--env-file` 或复制 `.env.example` 的步骤，必要变量直接写在 Compose 的 `environment` 和命令行 `-e` 中，公开值使用明确占位符，真实凭据只在部署端填写
 - 前置要求放在“📋 前置要求”：Docker Engine、使用 Compose 时需要的 Compose 版本，以及该路线实际需要的平台和账号
-- Compose 路线写明配置保存为哪个文件，给出可复制的最小完整 YAML；镜像地址与标签、端口映射、必要环境变量和数据卷以对应版本的实际配置为准，说明哪些值需要替换
+- Compose 文件统一命名为根目录的 `compose.yaml`，不与 `docker-compose.yml` 并存；这是文件名约定，不代表切换 Compose 格式版本
+- Compose 路线给出可复制的最小完整 YAML；镜像地址与标签、端口映射、必要环境变量和数据卷以对应版本的实际配置为准，说明哪些值需要替换
 - 给出启动命令和查看日志的命令，随后写出本机或远程服务器的访问地址，以及看到哪个页面代表启动成功；不能让远程部署者误把自己电脑的 `localhost` 当作服务器
 - 说明数据保存在哪个挂载目录或数据卷；预构建镜像需要访问权限时明确说明，无法确认可拉取时不要宣称直接拉取即可使用
 - 自行构建路线按实际情况写出获取源码、构建镜像和启动命令；如使用仓库 Compose 文件，构建的镜像名称必须与配置一致
+
+Docker 三种写法的一致性：
+
+- 以根目录 `compose.yaml` 为配置基准，Docker Compose、命令行方式、自行构建镜像都按“准备或配置 → 启动 → 查看日志 → 访问”的顺序说明
+- 可比运行参数按容器名、重启策略、端口、环境变量、挂载、其他必要选项的顺序排列；`docker run` 的镜像引用按语法放在最后，Compose 的镜像字段保留其配置位置
+- 环境变量的名称、值和排列顺序逐项一致；端口、挂载及其他重复条目也保留相同顺序，不在不同示例中重新排序或漏项
+- 自行构建仅增加源码准备和镜像构建步骤，运行部分复用同一组配置与参数顺序，按实际情况替换为对应版本的本地镜像
+- 命名数据卷须指向同一个实际卷；当命令行方式使用固定卷名时，Compose 显式设置对应卷的 `name`，避免项目名前缀生成另一份数据卷
+
+文件名依据见 [Docker 官方 Compose 文件说明](https://docs.docker.com/compose/intro/compose-application-model/#the-compose-file)：`compose.yaml` 是推荐名称，`docker-compose.yaml` 和 `docker-compose.yml` 继续用于向后兼容。
 
 Cloudflare 部署必须写清：
 
