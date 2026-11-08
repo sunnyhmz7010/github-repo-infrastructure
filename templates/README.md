@@ -51,13 +51,13 @@
 {完整、可直接执行的 docker run 命令}
 ```
 
-启动后访问 `{实际访问地址}`。
-
 也可以使用 Docker Compose：根目录已提供 `compose.yaml`，执行以下命令即可启动：
 
 ```bash
 docker compose up -d
 ```
+
+{可选：初始化步骤、访问地址和必要的使用说明}
 
 ## 📖 使用说明
 
